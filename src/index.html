@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="output.css" rel="stylesheet">
+</head>
+
+<body class="min-h-screen">
+    <div class="container mx-auto">
+        <div class="flex items-center justify-center">
+            <div class="p-4 w-8/12">
+                <div class="flex flex-col items-center justify-center md:flex-row md:space-x-8 mt-8 max-md:space-y-8">
+                    <div class="dc-card p-6 rounded-2xl shadow-md sm:flex-1">
+                        <!-- Your card content goes here -->
+                        <div class="flex items-center justify-center">
+                            <h2 class="text-2xl font-semibold mb-4 text-white">John Doe</h2>
+                        </div>
+                        <p class="text-gray-300">Stars: <span class="font-bold text-yellow-500" id="joeStars">0</span>
+                        </p>
+                    </div>
+                    <div class="dc-card p-6 rounded-2xl shadow-md sm:flex-1">
+                        <!-- Your card content goes here -->
+                        <div class="flex items-center justify-center">
+                            <h2 class="text-2xl font-semibold mb-4 text-white">Jane Smith</h2>
+                        </div>
+                        <p class="text-gray-300">Stars: <span class="font-bold text-yellow-500" id="janeStars">0</span>
+                        </p>
+                    </div>
+                </div>
+                <br>
+                <div class="flex items-center justify-center">
+                    <button class="bg-green-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-2xl"
+                        id="addStars">
+                        Add Stars
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        import SimpleObservable from './javascript/SimpleObservable.js';
+        import StarObserver from './javascript/StarObserver.js';
+
+        const observable = new SimpleObservable();
+
+        const johnStarObserver = new StarObserver('john', 'joeStars');
+        const janeStarObserver = new StarObserver('jane', 'janeStars');
+
+        observable.subscribe(johnStarObserver);
+        observable.subscribe(janeStarObserver);
+
+        const buttonAddStars = document.getElementById('addStars');
+
+        if (buttonAddStars) {
+            buttonAddStars.addEventListener('click', function () {
+                observable.updateValue(1);
+            });
+        }
+    </script>
+</body>
+
+</html>
